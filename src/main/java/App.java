@@ -37,8 +37,33 @@ public class App {
                 } else {
                     System.out.println("%d번 명언은 존재하지 않습니다.".formatted(id));
                 }
+            } else if (command.startsWith("수정?id=")) {
+                String strId = command.substring(6);
+                int id = Integer.parseInt(strId);
+
+                updateWiseSaying();
             }
         }
+    }
+
+    private WiseSaying findWiseSaying(int targetId) {
+        for(WiseSaying wiseSaying : wiseSayingList){
+            if(wiseSaying.getId() == targetId){
+                return wiseSaying;
+            }
+        }
+        return null; // 자바에서 null은 객체가 없음 의미
+    }
+
+    private void updateWiseSaying(int targetId) {
+        WiseSaying wiseSaying = findWiseSaying(targetId);
+
+        if(wiseSaying == null){
+            System.out.println("%d번 명언은 존재하지 않습니다.".formatted(targetId));
+            return;
+        }
+        
+        // 수정 가능
     }
 
     private boolean deleteWiseSaying(int targetId) {
