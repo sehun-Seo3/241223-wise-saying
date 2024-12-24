@@ -13,10 +13,9 @@ class App {
 
         System.out.println("== 명언 앱 ==");
         int lastNo = 0;
-        String content = "";
         String[] contentList = new String[3];
-        String author = "";
         String[] authorList = new String[3];
+        WiseSaying wiseSaying = new WiseSaying();
 
         while (true) {
             System.out.print("명령) ");
@@ -28,21 +27,37 @@ class App {
             } else if (command.equals("등록")) {
 
                 System.out.print("명언 : ");
-                contentList[lastNo] = scanner.nextLine(); // 입력값 가져옴. 입력값이 없으면 기다린다. 엔터를 쳐야 입력이 완료됨. 그래야 넘어감
+                String content = scanner.nextLine(); // 입력값 가져옴. 입력값이 없으면 기다린다. 엔터를 쳐야 입력이 완료됨. 그래야 넘어감
 
                 System.out.print("작가 : ");
-                authorList[lastNo] = scanner.nextLine();
+                String author = scanner.nextLine();
 
-                System.out.println("%d 번 명언이 등록되었습니다.".formatted(++lastNo));
+
+                wiseSaying.id = ++lastNo;
+                wiseSaying.content = content;
+                wiseSaying.author = author;
+
+                System.out.println("%d 번 명언이 등록되었습니다.".formatted(lastNo));
                 lastNo++;
             } else if (command.equals("목록")) {
                 System.out.println("번호 / 작가 / 명언");
                 System.out.println("--------------------");
+                System.out.println("%d / %s / %s".formatted(wiseSaying.id, wiseSaying.author, wiseSaying.content));
 
-                for (int i = 0; i < 3; i++) {
-                    System.out.println("$d / %s / %s".formatted(lastNo, authorList[i], contentList[i]));
-                }
+//                for (int i = 2; i >= 0; i--) {
+//                    System.out.println("$d / %s / %s".formatted(i, authorList[i], contentList[i]));
+//                }
             }
         }
+    }
+}
+
+class WiseSaying {
+    int id;
+    String content;
+    String author;
+
+    WiseSaying() {
+
     }
 }
