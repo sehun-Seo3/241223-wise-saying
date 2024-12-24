@@ -30,22 +30,20 @@ public class App {
             } else if (command.equals("목록")) {
                 printWiseSayingList();
             } else if (command.startsWith("삭제?id=")) {
-                deleteWiseSaying();
+
+                String strId = command.substring(6);
+                int id = Integer.parseInt(strId);
+
+                deleteWiseSaying(id);
+                System.out.println("%d번 명언이 삭제되었습니다.".formatted(id));
             }
         }
     }
 
-    // [a:0, b:1, c:2]
-    private void deleteWiseSaying() {
-        System.out.println("삭제");
+    private void deleteWiseSaying(int targetId) {
 
-//        wiseSayingList.remove(1); // 1번째 명언 삭제 -> 명언의 번호와 배열의 index가 아무 상관이 없다.
-
-        // 1. 아이디가 1인 명언의 index를 얻는다.
-        // 2. 아이디가 1인 명언의 참조값을 얻는다. (값 자체를 얻는다.)
-        // -> 정답은 없다. 하지만 2번으로 한다.
         for(WiseSaying wiseSaying : wiseSayingList) {
-            if(wiseSaying.getId() == 1){
+            if(wiseSaying.getId() == targetId){
                 wiseSayingList.remove(wiseSaying);
                 break;
             }
@@ -73,7 +71,6 @@ public class App {
         System.out.println("%d번 명언이 등록되었습니다.".formatted(lastId));
     }
 
-    // 함수 이름 지을 땐 동사
     public void add(String content, String author) {
         WiseSaying wiseSaying = new WiseSaying(++lastId, content, author);
         wiseSayingList.add(wiseSaying);
