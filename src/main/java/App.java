@@ -2,10 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
-    // 클래스에서 함수들이 공유해야 하는 변수 -> 인스턴스 변수
     private int lastId = 0;
-//    private final WiseSaying[] wiseSayingList = new WiseSaying[3];
-
     private final ArrayList<WiseSaying> wiseSayingList = new ArrayList<>();
 
     Scanner scanner = new Scanner(System.in);
@@ -26,7 +23,6 @@ public class App {
 
             } else if (command.equals("등록")) {
                 writeWiseSaying();
-
             } else if (command.equals("목록")) {
                 printWiseSayingList();
             } else if (command.startsWith("삭제?id=")) {
@@ -34,27 +30,32 @@ public class App {
                 String strId = command.substring(6);
                 int id = Integer.parseInt(strId);
 
-                deleteWiseSaying(id);
-                System.out.println("%d번 명언이 삭제되었습니다.".formatted(id));
+                boolean result = deleteWiseSaying(id);
+
+                if (result) {
+                    System.out.println("%d번 명언이 삭제되었습니다.".formatted(id));
+                } else {
+                    System.out.println("%d번 명언은 존재하지 않습니다.".formatted(id));
+                }
             }
         }
     }
 
-    private void deleteWiseSaying(int targetId) {
-
-        for(WiseSaying wiseSaying : wiseSayingList) {
-            if(wiseSaying.getId() == targetId){
+    private boolean deleteWiseSaying(int targetId) {
+        for (WiseSaying wiseSaying : wiseSayingList) {
+            if (wiseSaying.getId() == targetId) {
                 wiseSayingList.remove(wiseSaying);
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     private void printWiseSayingList() {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("----------------------");
 
-        for(WiseSaying wiseSaying : wiseSayingList.reversed()) {
+        for (WiseSaying wiseSaying : wiseSayingList.reversed()) {
             System.out.println("%d / %s / %s".formatted(wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent()));
         }
     }
