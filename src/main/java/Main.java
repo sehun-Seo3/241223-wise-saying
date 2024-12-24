@@ -9,34 +9,28 @@ public class Main {
 
 class App {
     // 클래스에서 함수들이 공유해야 하는 변수 -> 인스턴스 변수
-    int lastId = 0;
-    int wiseSayingSize = 0;
-    WiseSaying[] wiseSayingList = new WiseSaying[3];
+    private int lastId = 0;
+    private int wiseSayingSize = 0;
+    private WiseSaying[] wiseSayingList = new WiseSaying[3];
 
-    
 
     public void run() {
 
         Scanner scanner = new Scanner(System.in);
 
         // 테스트 명언 데이터1
-        WiseSaying wiseSayingTest = new WiseSaying();
-        wiseSayingTest.id = ++lastId;
-        wiseSayingTest.content = "꿈을 지녀라. 그러면 어려운 현실을 이길 수 있다.";
-        wiseSayingTest.author = "월트 디즈니";
-
-        wiseSayingList[wiseSayingSize++] = wiseSayingTest;
+        add("꿈을 지녀라. 그러면 어려운 현실을 이길 수 있다.", "월트 디즈니");
 
         System.out.println("== 명언 앱 ==");
-        while(true) {
+        while (true) {
             System.out.print("명령) ");
             String command = scanner.nextLine();
 
-            if(command.equals("종료")) {
+            if (command.equals("종료")) {
                 System.out.println("명언 앱을 종료합니다.");
                 break;
 
-            } else if(command.equals("등록")) {
+            } else if (command.equals("등록")) {
 
                 System.out.print("명언 : ");
                 String content = scanner.nextLine();
@@ -47,14 +41,14 @@ class App {
                 add(content, author); // 1. 함수로 분리 -> 코드가 줄어든다. 가독성이 올라간다. 2. 재활용성(중복 제거)
 
                 System.out.println("%d번 명언이 등록되었습니다.".formatted(lastId));
-            } else if(command.equals("목록")) {
+            } else if (command.equals("목록")) {
 
                 System.out.println("번호 / 작가 / 명언");
                 System.out.println("----------------------");
 
-                for(int i = 0; i < wiseSayingSize; i++) {
+                for (int i = 0; i < wiseSayingSize; i++) {
                     WiseSaying wiseSaying = wiseSayingList[i];
-                    System.out.println("%d / %s / %s".formatted(wiseSaying.id, wiseSaying.author, wiseSaying.content));
+                    System.out.println("%d / %s / %s".formatted(wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent()));
                 }
             }
         }
@@ -62,21 +56,32 @@ class App {
 
     // 함수 이름 지을 땐 동사
     public void add(String content, String author) {
-
-
-        WiseSaying wiseSaying = new WiseSaying();
-
-        wiseSaying.id = ++lastId;
-        wiseSaying.content = content;
-        wiseSaying.author = author;
-
+        WiseSaying wiseSaying = new WiseSaying(++lastId, content, author);
         wiseSayingList[wiseSayingSize++] = wiseSaying;
     }
 
 }
 
 class WiseSaying {
-    int id;
-    String content;
-    String author;
+    private int id;
+    private String content;
+    private String author;
+
+    WiseSaying(int id, String content, String author) {
+        this.id = id;
+        this.content = content;
+        this.author = author;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
 }
