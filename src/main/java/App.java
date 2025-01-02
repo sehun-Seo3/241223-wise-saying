@@ -41,7 +41,7 @@ public class App {
                 String strId = command.substring(6);
                 int id = Integer.parseInt(strId);
 
-                updateWiseSaying();
+                updateWiseSaying(id);
             }
         }
     }
@@ -63,7 +63,15 @@ public class App {
             return;
         }
         
-        // 수정 가능
+        System.out.println("명언(기존 : %s".formatted(wiseSaying.getContent()));
+        System.out.print("명언 : ");
+        String newContent = scanner.nextLine();
+        System.out.println("명언(기존 : %s".formatted(wiseSaying.getAuthor()));
+        System.out.print("작가 : ");
+        String newAuthor = scanner.nextLine();
+
+        wiseSaying.setContent("새로운 명언");
+        wiseSaying.setAuthor("새로운 작가");
     }
 
     private boolean deleteWiseSaying(int targetId) {
